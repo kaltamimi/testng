@@ -1,6 +1,5 @@
-package extenreports;
+package extentreports;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -9,8 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -18,9 +16,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-import utilities.Screenshots;
-
-public class LoginTestWithScreenshot {
+public class SeleniumLoginTest {
 
     private WebDriver driver;
     private String baseUrl;
@@ -55,7 +51,7 @@ public class LoginTestWithScreenshot {
         test.log(LogStatus.INFO, "Clicked on login link");
 
         WebElement emailField = driver.findElement(By.xpath("//div[@id='memberLoginDialogemail']//input"));
-        emailField.sendKeys("test1@email.com");
+        emailField.sendKeys("test@email.com");
         test.log(LogStatus.INFO, "Enter email");
 
         WebElement passwordField = driver.findElement(By.xpath("//div[@id='memberLoginDialogpassword']//input"));
@@ -80,13 +76,8 @@ public class LoginTestWithScreenshot {
         test.log(LogStatus.PASS, "Verified Welcome Text");
     }
 
-    @AfterMethod
-    public void tearDown(ITestResult testResult) throws IOException {
-        if (testResult.getStatus() == ITestResult.FAILURE) {
-            String path = Screenshots.takeScreenshot(driver, testResult.getName());
-            String imagePath = test.addScreenCapture(path);
-            test.log(LogStatus.FAIL, "Verify Welcome Text Failed", imagePath);
-        }
+    @AfterClass
+    public void afterClass() {
         driver.quit();
         report.endTest(test);
         report.flush();
