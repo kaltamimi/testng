@@ -23,7 +23,7 @@ public class ExcelRead {
         XSSFCell Cell;
 
         // Location of the Excel file
-        String path = "//Users//atomar//Documents//workspace_personal//SeleniumWD2Tutorial//src//utilities//ExcelRead.xlsx";
+        String path = "./resources/data/ExcelRead.xlsx";
         String sheetName = "Sheet1";
 
         try {
